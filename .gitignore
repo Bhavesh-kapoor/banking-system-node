@@ -2,6 +2,7 @@
 jspm_packages/
 web_modules/
 node_modules
+./node_modules
 
 # Debug and Log Files
 logs
