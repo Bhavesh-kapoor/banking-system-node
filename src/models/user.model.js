@@ -53,4 +53,9 @@ export const registerSchema = z.object({
         'required_error':"Password is required"
     }).min(8)
 })
+
+export const loginSchema = z.object({
+    "email":z.string().email(),
+    "password":z.string()
+})
 export default User
