@@ -1,5 +1,6 @@
 import mongoose  from "mongoose";
 import bcrypt from "bcryptjs";
+import {z} from 'zod';
 // creating  user schema
 const userSchema = new mongoose.Schema({
 
@@ -26,13 +27,13 @@ const userSchema = new mongoose.Schema({
 })
 
 // pre save password 
-userSchema.pre('save',async function(next){
+userSchema.pre('save',async function(){
     if(!this.isModified("password")){
-        return next()
+        return true
     }
     const hash= await bcrypt.hash(this.password,10)
     this.password =  hash
-    return next()
+    return true
 })
 
 userSchema.methods.comparePassword= async function(password){
@@ -40,4 +41,16 @@ userSchema.methods.comparePassword= async function(password){
 }
 
 const User = mongoose.model("user",userSchema)
+
+
+// registerSchema
+export const registerSchema = z.object({
+    "name":z.string({"required_error":"Name is required!"}),
+    "email":z.string({
+        'required_error':"email is required"
+    }).email(),
+    "password":z.string({
+        'required_error':"Password is required"
+    }).min(8)
+})
 export default User
