@@ -1,6 +1,6 @@
-import redisConnection from '../../utills/config.js';
+import redisConnection from '../utills/config.js';
 import {Worker} from 'bullmq';
-import {registrationWelcomeMail} from '../../services/email.service.js';
+import {registrationWelcomeMail} from '../services/email.service.js';
 
 const emailWorker = new Worker('emailQueue', async (job) => {
     const { name, email } = job.data;

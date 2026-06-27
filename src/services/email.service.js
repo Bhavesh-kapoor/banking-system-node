@@ -5,8 +5,6 @@ import APP_CONFIG from "../utills/config.js";
 
 async function sendMail(receiverMail, subject, body) {
     try {
-        console.log("Sending email to:", receiverMail);
-        console.log("app config", APP_CONFIG.SENDERMAIL, APP_CONFIG.SENDER_PASSWORD);
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com', // Replace with your SMTP server host
             port: 587,                // 587 is standard for TLS
@@ -48,7 +46,7 @@ export async function registrationWelcomeMail(name, email) {
             <p>Hi <strong>${name}</strong>,</p>
 
             <p>
-                Thank you for registering with <strong>My App</strong>.
+                Thank you for registering with <strong>${APP_CONFIG.APP_NAME}</strong>.
             </p>
 
             <p>
@@ -80,7 +78,7 @@ export async function registrationWelcomeMail(name, email) {
 
             <p style="font-size:13px;color:#777;">
                 Regards,<br>
-                <strong>My App Team</strong>
+                <strong>${APP_CONFIG.APP_NAME}</strong>
             </p>
 
         </div>

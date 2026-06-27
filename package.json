@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon server.js",
-    "emailWorker": "node src/jobs/email/email.worker.js"
+    "emailWorker": "node src/workers/email.worker.js"
   },
   "keywords": [],
   "author": "",

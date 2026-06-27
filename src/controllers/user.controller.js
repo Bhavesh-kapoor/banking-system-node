@@ -3,8 +3,7 @@ import { registerSchema, loginSchema } from "../models/user.model.js";
 import ValidateRequest from "../utills/validateRequest.js";
 import { generateToken } from "../utills/jwt.js";
 import { errorResponse, successResponse } from "../utills/response.js";
-import { registrationWelcomeMail } from "../services/email.service.js";
-import {emailQueue} from '../jobs/email/email.queue.js'
+import {emailQueue} from '../queues/email.queue.js'
 /**
  * Register a new user
  * @route POST /api/auth/register

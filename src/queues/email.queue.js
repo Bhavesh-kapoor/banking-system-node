@@ -1,5 +1,5 @@
 import {Queue} from 'bullmq';
-import AppConfig from '../../utills/config.js';
+import AppConfig from '../utills/config.js';
 
 export const redisConnection = {
     host: AppConfig.redisHost,
