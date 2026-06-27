@@ -4,7 +4,7 @@ import ValidateRequest from "../utills/validateRequest.js";
 import { generateToken } from "../utills/jwt.js";
 import { errorResponse, successResponse } from "../utills/response.js";
 import { registrationWelcomeMail } from "../services/email.service.js";
-
+import {emailQueue} from '../jobs/email/email.queue.js'
 /**
  * Register a new user
  * @route POST /api/auth/register
@@ -37,8 +37,8 @@ async function register(req,res){
                 },
             "token":token
         } 
-        await registrationWelcomeMail(user.name,user.email)
-         return  successResponse(res,'User register successfully!',data,201)
+        await emailQueue.add('registrationWelcomeMail', { name: user.name, email: user.email });
+        return  successResponse(res,'User register successfully!',data,201)
 
         
     }catch(err){

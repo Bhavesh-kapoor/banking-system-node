@@ -1,35 +1,20 @@
 import nodemailer from "nodemailer";
-import { google } from "googleapis";
 import APP_CONFIG from "../utills/config.js";
 
-const OAuth2 = google.auth.OAuth2;
-
-const oauth2Client = new OAuth2(
-    APP_CONFIG.CLIENT_ID,
-    APP_CONFIG.SECREAT_ID,
-    "https://developers.google.com/oauthplayground"
-);
-
-oauth2Client.setCredentials({
-    refresh_token: APP_CONFIG.REFRESH_TOKEN,
-});
 
 
 async function sendMail(receiverMail, subject, body) {
     try {
-        const accessToken = await oauth2Client.getAccessToken();
-
-console.log(profile.data,"profiledata")
+        console.log("Sending email to:", receiverMail);
+        console.log("app config", APP_CONFIG.SENDERMAIL, APP_CONFIG.SENDER_PASSWORD);
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            host: 'smtp.gmail.com', // Replace with your SMTP server host
+            port: 587,                // 587 is standard for TLS
+            secure: false,            // true for port 465, false for other ports
             auth: {
-                type: "OAuth2",
-                user: APP_CONFIG.SENDERMAIL,
-                clientId: APP_CONFIG.CLIENT_ID,
-                clientSecret: APP_CONFIG.SECREAT_ID,
-                refreshToken: APP_CONFIG.REFRESH_TOKEN,
-                accessToken: accessToken.token,
-            },
+                user: APP_CONFIG.SENDERMAIL,  // Your SMTP account username
+                pass: APP_CONFIG.SENDER_PASSWORD   // Your SMTP account password
+            }
         });
 
         const mailOptions = {
@@ -44,12 +29,13 @@ console.log(profile.data,"profiledata")
         console.log("Email Sent :", info.messageId);
     } catch (err) {
         console.error(err);
+        throw err;
     }
 }
 
 export async function registrationWelcomeMail(name, email) {
 
-    const subject = "🎉 Welcome to My App";
+    const subject = `🎉 Welcome to ${APP_CONFIG.APP_NAME}`;
 
     const body = `
     <div style="font-family:Arial,sans-serif;background:#f4f4f4;padding:30px;">

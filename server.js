@@ -4,5 +4,5 @@ import APP_CONFIG from './src/utills/config.js'
 import connectDB from './src/config/db.js'
 connectDB()
 app.listen(APP_CONFIG.SERVER_PORT,(req,res)=>{
-    console.log("server is running at this port")
+    console.log("server is running at this port",APP_CONFIG.SERVER_PORT)
 })
