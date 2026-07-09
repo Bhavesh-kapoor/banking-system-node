@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import {z} from 'zod'
 
-const TransactionModel = new mongoose.Schema({
+const TransactionSchema = new mongoose.Schema({
     from:{
         type :  mongoose.Schema.Types.ObjectId,
         ref:"account",
@@ -31,5 +32,16 @@ const TransactionModel = new mongoose.Schema({
     }
 },{timestamps:true})
 
-const Transaction = mongoose.model("transaction",TransactionModel)
+
+//  transaction validation schema 
+
+export const createTransactionValidation=z.object({
+    "from":z.string({"required_error":"from account is required"}),
+    "to":z.string({"required_error":"to account is required"}),
+    "amount":z.string({"required_error":"amount is required"}),
+    "idempotencyKey":z.string({"required_error":"idempotencyKey is required"}),
+
+
+})
+const Transaction = mongoose.model("transaction",TransactionSchema)
 export default  Transaction

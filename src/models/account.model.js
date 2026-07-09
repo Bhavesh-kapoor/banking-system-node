@@ -22,6 +22,6 @@ const accountSchema = new mongoose.Schema({
 },{timestamps:true})
 
 accountSchema.index({user:1,status:1})
-const accountModel = mongoose.model('account',accountSchema)
+const AccountModel = mongoose.model('account',accountSchema)
 
-export default accountModel
+export default AccountModel

@@ -5,7 +5,6 @@ const ValidateRequest = async (schema , requestBody)=>{
     if(!validate.success){
             // check the code 
             let code = validate.error.issues[0].code;
-            console.log(validate)
             if(code =='invalid_type'){
                 console.log(validate.error.issues[0])
                 let path =validate.error.issues[0].path[0];
